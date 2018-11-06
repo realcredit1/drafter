@@ -19,8 +19,6 @@ matrix:
 init:
 - set arch=
 - if "%arch%"=="Win64" ( set arch= Win64)
-- echo %arch%
-- echo %APPVEYOR_BUILD_WORKER_IMAGE%
 - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2017" ( set generator="Visual Studio 15 2017%arch%" )
 - if "%APPVEYOR_BUILD_WORKER_IMAGE%"=="Visual Studio 2015" ( set generator="Visual Studio 14 2015%arch%" )
 - echo %generator%
@@ -28,16 +26,6 @@ init:
 before_build:
 - cmd: |-
     git submodule update --init --recursive
-    mkdir build
-    cd build
-    cmake --version
-    cmake .. -G %generator%
 
-build:
-  project: c:\projects\drafter\build\Project.sln
-  verbosity: minimal
-  parallel: false
-
-test_script: |-
-  set CTEST_OUTPUT_ON_FAILURE=1
-  ctest -j4
+build_script:
+- ctest -VV -j5 -S win_ci.cmake -DCTEST_CMAKE_GENERATOR=%generator% -DCTEST_BUILD_TYPE=%CONFIGURATION%
