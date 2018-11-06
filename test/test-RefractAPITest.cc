@@ -20,7 +20,7 @@ TEST_REFRACT("api", "action-parameters");
 TEST_REFRACT("api", "request-parameters");
 TEST_REFRACT("api", "request-only");
 TEST_REFRACT("api", "asset");
-TEST_REFRACT("api", "xml-body");
+//TEST_REFRACT("api", "xml-body"); // TODO @tjanc@
 TEST_REFRACT("api", "schema-body");
 TEST_REFRACT("api", "schema-custom");
 TEST_REFRACT("api", "schema-custom-json");
