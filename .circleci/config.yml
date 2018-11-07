@@ -12,9 +12,6 @@ aliases:
           name: Install CMake jessie-backports
           command: 'echo "deb http://ftp.debian.org/debian jessie-backports main" | sudo tee --append /etc/apt/sources.list && sudo apt-get update && sudo apt-get -t jessie-backports install -y --no-install-recommends cmake'
       - run:
-          name: Install Valgrind
-          command: 'apt-get update && sudo apt-get install -y valgrind'
-      - run:
           name: Install Ruby
           command: 'apt-get update && apt-get install -y ruby ruby-dev'
 
@@ -23,31 +20,7 @@ aliases:
       - run: gem install bundler
       - run:
           name: Build and test
-          command: ctest -VV -j5 -S gnu_release_ci.cmake 
-
-  - &test-gnu-coverage
-    working_directory: /tmp/drafter
-    environment:
-    steps:
-      - run:
-          name: Install sudo
-          command: 'apt-get update && apt-get install -y sudo'
-      - run:
-          name: Install CMake
-          command: 'apt-get update && sudo apt-get install -y cmake'
-      - run:
-          name: Install Valgrind
-          command: 'apt-get update && sudo apt-get install -y valgrind'
-      - run:
-          name: Install Ruby
-          command: 'apt-get update && apt-get install -y ruby ruby-dev'
-
-      - checkout
-      - run: git submodule update --init --recursive
-      - run: gem install bundler
-      - run:
-          name: Build and test
-          command: ctest -VV -j5 -S gnu_coverage_ci.cmake 
+          command: ctest -VV -j5 -S cmake/gnu_release.cmake 
 
   - &test-gnu-release
     working_directory: /tmp/drafter
@@ -60,9 +33,6 @@ aliases:
           name: Install CMake
           command: 'apt-get update && sudo apt-get install -y cmake'
       - run:
-          name: Install Valgrind
-          command: 'apt-get update && sudo apt-get install -y valgrind'
-      - run:
           name: Install Ruby
           command: 'apt-get update && apt-get install -y ruby ruby-dev'
 
@@ -71,7 +41,7 @@ aliases:
       - run: gem install bundler
       - run:
           name: Build and test
-          command: ctest -VV -j5 -S gnu_release_ci.cmake 
+          command: ctest -VV -j5 -S cmake/gnu_release.cmake 
 
   - &test-gnu-debug
     working_directory: /tmp/drafter
@@ -84,8 +54,26 @@ aliases:
           name: Install CMake
           command: 'apt-get update && sudo apt-get install -y cmake'
       - run:
-          name: Install Valgrind
-          command: 'apt-get update && sudo apt-get install -y valgrind'
+          name: Install Ruby
+          command: 'apt-get update && apt-get install -y ruby ruby-dev'
+
+      - checkout
+      - run: git submodule update --init --recursive
+      - run: gem install bundler
+      - run:
+          name: Build and test
+          command: ctest -VV -j5 -S cmake/gnu_debug.cmake 
+
+  - &test-coverage
+    working_directory: /tmp/drafter
+    environment:
+    steps:
+      - run:
+          name: Install sudo
+          command: 'apt-get update && apt-get install -y sudo'
+      - run:
+          name: Install CMake
+          command: 'apt-get update && sudo apt-get install -y cmake'
       - run:
           name: Install Ruby
           command: 'apt-get update && apt-get install -y ruby ruby-dev'
@@ -95,7 +83,78 @@ aliases:
       - run: gem install bundler
       - run:
           name: Build and test
-          command: ctest -VV -j5 -S gnu_debug_ci.cmake 
+          command: ctest -VV -j5 -S cmake/coverage.cmake 
+
+  - &test-asan
+    working_directory: /tmp/drafter
+    environment:
+    steps:
+      - run:
+          name: Install sudo
+          command: 'apt-get update && apt-get install -y sudo'
+      - run:
+          name: Install CMake
+          command: 'apt-get update && sudo apt-get install -y cmake'
+
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build and test
+          command: ctest -VV -j5 -S cmake/asan.cmake 
+
+  - &test-lsan
+    working_directory: /tmp/drafter
+    environment:
+    steps:
+      - run:
+          name: Install sudo
+          command: 'apt-get update && apt-get install -y sudo'
+      - run:
+          name: Install CMake
+          command: 'apt-get update && sudo apt-get install -y cmake'
+
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build and test
+          command: ctest -VV -j5 -S cmake/lsan.cmake 
+
+  - &test-ubsan
+    working_directory: /tmp/drafter
+    environment:
+    steps:
+      - run:
+          name: Install sudo
+          command: 'apt-get update && apt-get install -y sudo'
+      - run:
+          name: Install CMake
+          command: 'apt-get update && sudo apt-get install -y cmake'
+
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build and test
+          command: ctest -VV -j5 -S cmake/ubsan.cmake 
+
+  - &test-valgrind
+    working_directory: /tmp/drafter
+    environment:
+    steps:
+      - run:
+          name: Install sudo
+          command: 'apt-get update && apt-get install -y sudo'
+      - run:
+          name: Install CMake
+          command: 'apt-get update && sudo apt-get install -y cmake'
+      - run:
+          name: Install Valgrind
+          command: 'apt-get update && sudo apt-get install -y valgrind'
+
+      - checkout
+      - run: git submodule update --init --recursive
+      - run:
+          name: Build and test
+          command: ctest -VV -j5 -S cmake/valgrind.cmake 
 
   - &test-xcode-debug
     working_directory: /tmp/drafter
@@ -109,7 +168,7 @@ aliases:
       - run: git submodule update --init --recursive
       - run:
           name: Build and test
-          command: ctest -VV -j5 -S xcode_debug_ci.cmake 
+          command: ctest -VV -j5 -S cmake/gnu_debug.cmake 
 
   - &test-xcode-release
     working_directory: /tmp/drafter
@@ -123,7 +182,7 @@ aliases:
       - run: git submodule update --init --recursive
       - run:
           name: Build and test
-          command: ctest -VV -j5 -S xcode_release_ci.cmake 
+          command: ctest -VV -j5 -S cmake/gnu_release.cmake 
 
   - &tag-filter
     filters:
@@ -139,7 +198,12 @@ workflows:
       - test-gcc5.4-release: *tag-filter
       - test-gcc6-release: *tag-filter
       - test-gcc7-release: *tag-filter
+      - test-gcc7-debug: *tag-filter
       - test-gcc7-coverage: *tag-filter
+      - test-gcc7-asan: *tag-filter
+      - test-gcc7-lsan: *tag-filter
+      - test-gcc7-ubsan: *tag-filter
+      - test-gcc7-valgrind: *tag-filter
       - test-clang4-release: *tag-filter
       - test-clang5-release: *tag-filter
       - test-clang6-release: *tag-filter
@@ -151,7 +215,12 @@ workflows:
             - test-gcc5.4-release
             - test-gcc6-release
             - test-gcc7-release
+            - test-gcc7-debug
             - test-gcc7-coverage
+            - test-gcc7-asan
+            - test-gcc7-lsan
+            - test-gcc7-ubsan
+            - test-gcc7-valgrind
             - test-clang4-release
             - test-clang5-release
             - test-clang6-release
@@ -188,8 +257,33 @@ jobs:
     docker:
       - image: gcc:7
 
+  test-gcc7-debug:
+    <<: *test-gnu-debug
+    docker:
+      - image: gcc:7
+
   test-gcc7-coverage:
-    <<: *test-gnu-coverage
+    <<: *test-coverage
+    docker:
+      - image: gcc:7
+
+  test-gcc7-asan:
+    <<: *test-asan
+    docker:
+      - image: gcc:7
+
+  test-gcc7-lsan:
+    <<: *test-lsan
+    docker:
+      - image: gcc:7
+
+  test-gcc7-ubsan:
+    <<: *test-ubsan
+    docker:
+      - image: gcc:7
+
+  test-gcc7-valgrind:
+    <<: *test-valgrind
     docker:
       - image: gcc:7
 
