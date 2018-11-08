@@ -8,7 +8,7 @@ add_executable(markdown-parser-test
     test/test-MarkdownParser.cc
     )
 
-add_test(MardownParserTest markdown-parser-test)
+catch_discover_tests(markdown-parser-test)
 
 target_link_libraries(markdown-parser-test
     PRIVATE
