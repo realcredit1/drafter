@@ -36,4 +36,4 @@ before_build:
     bundle install --path bundle
 
 build_script:
-- ctest -VV -j5 -S cmake/win_multi.cmake -DCTEST_CMAKE_GENERATOR=%generator% -DCTEST_BUILD_TYPE=%CONFIGURATION%
+- ctest -VV -j5 -S cmake/win_multi.cmake -DCTEST_CMAKE_GENERATOR=%generator% -C %CONFIGURATION% -DCTEST_BUILD_TYPE=%CONFIGURATION%
