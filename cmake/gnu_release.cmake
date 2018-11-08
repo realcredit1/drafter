@@ -16,6 +16,6 @@ set(Drafter_CONFIG_OPTIONS
 
 ctest_start("Continuous")
 ctest_configure(OPTIONS "${Drafter_CONFIG_OPTIONS}")
-ctest_build(FLAGS -j5)
+ctest_build(FLAGS -j5 TARGET drafter-test-suite)
 ctest_test()
 ctest_submit()

@@ -13,6 +13,6 @@ set(CTEST_MEMORYCHECK_COMMAND "/usr/bin/valgrind")
 
 ctest_start("Continuous")
 ctest_configure()
-ctest_build(FLAGS -j5)
+ctest_build(FLAGS -j5 TARGET drafter-test-suite)
 ctest_memcheck(EXCLUDE DrafterIntegration)
 ctest_submit()
