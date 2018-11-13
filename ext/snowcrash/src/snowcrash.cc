@@ -52,7 +52,6 @@ int snowcrash::parse(
     const mdp::ByteBuffer& source, BlueprintParserOptions options, const ParseResultRef<Blueprint>& out)
 {
     try {
-
         // Sanity Check
         if (!CheckSource(source, out.report))
             return out.report.error.code;

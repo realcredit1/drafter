@@ -549,17 +549,25 @@ TEST_CASE("Named Endpoint", "[named_endpoint]")
     REQUIRE(blueprint.report.warnings.empty());
 
     REQUIRE(blueprint.node.content.elements().size() == 1);
+
     REQUIRE(blueprint.node.content.elements().at(0).element == Element::CategoryElement);
+
     REQUIRE(blueprint.node.content.elements().at(0).content.elements().size() == 1);
+
     REQUIRE(blueprint.node.content.elements().at(0).content.elements().at(0).element == Element::ResourceElement);
 
     const Resource& resource = blueprint.node.content.elements().at(0).content.elements().at(0).content.resource;
+
     REQUIRE(resource.name == "My Named Endpoint");
+
     REQUIRE(resource.uriTemplate == "/test/endpoint");
+
     REQUIRE(resource.actions.size() == 1);
 
     Action action = resource.actions.at(0);
+
     REQUIRE(action.method == "GET");
+
 }
 
 TEST_CASE("Named Endpoints Edge Cases", "[named_endpoint]")
