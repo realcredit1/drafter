@@ -238,24 +238,30 @@ namespace snowcrash
         /** \return True if the node is a section description node */
         static bool isDescriptionNode(const MarkdownNodeIterator& node, SectionType sectionType)
         {
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             if (SectionProcessor<T>::isContentNode(node, sectionType)
                 || SectionProcessor<T>::nestedSectionType(node) != UndefinedSectionType) {
                 return false;
             }
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             SectionType keywordSectionType = SectionKeywordSignature(node);
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             if (keywordSectionType == UndefinedSectionType) {
                 return true;
             }
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             SectionTypes upperTypes = SectionProcessor<T>::upperSectionTypes();
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             if (std::find(upperTypes.begin(), upperTypes.end(), keywordSectionType) != upperTypes.end()) {
                 // Node is a keyword defined section defined in an upper level section
                 return false;
             }
+            std::cerr << "XXX " << __LINE__ << std::endl;
 
             return true;
         }

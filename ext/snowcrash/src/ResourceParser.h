@@ -55,6 +55,9 @@ namespace snowcrash
 
                 // Make this section an action
                 if (!captureGroups[2].empty()) {
+                    std::cerr << "RPXXX " << __LINE__ << std::endl;
+                    node->parent().children().end();
+                    std::cerr << "RPXXX " << __LINE__ << std::endl;
                     return processNestedAction(node, node->parent().children(), pd, layout, out);
                 }
             } else if (RegexCapture(node->text, NamedEndpointHeaderRegex, captureGroups, 5)) {
@@ -62,6 +65,10 @@ namespace snowcrash
                 out.node.name = captureGroups[1];
                 TrimString(out.node.name);
                 out.node.uriTemplate = captureGroups[3];
+
+                std::cerr << "RPXXX " << __LINE__ << std::endl;
+                node->parent().children().end();
+                std::cerr << "RPXXX " << __LINE__ << std::endl;
 
                 return processNestedAction(node, node->parent().children(), pd, layout, out);
             } else {
@@ -334,6 +341,9 @@ namespace snowcrash
             SectionLayout& layout,
             const ParseResultRef<Resource>& out)
         {
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
+            siblings.end();
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
 
             IntermediateParseResult<Action> action(out.report);
             MarkdownNodeIterator cur = ActionParser::parse(node, siblings, pd, action);
@@ -355,6 +365,9 @@ namespace snowcrash
             SectionParserData& pd,
             const ParseResultRef<Resource>& out)
         {
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
+            siblings.end();
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
 
             IntermediateParseResult<Action> action(out.report);
             MarkdownNodeIterator cur = ActionParser::parse(node, siblings, pd, action);

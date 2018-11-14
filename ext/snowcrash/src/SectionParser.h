@@ -35,9 +35,22 @@ namespace snowcrash
             SectionParserData& pd,
             const ParseResultRef<T>& out)
         {
+            std::cerr << "WHERE: "                       //
+                      << "<" << typeid(T).name() << ", " //
+                      << typeid(Adapter).name() << ">::" //
+                      << __func__ << std::endl;
+
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+            siblings.end();
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+
             SectionLayout layout = DefaultSectionLayout;
             MarkdownNodeIterator cur = Adapter::startingNode(node, pd);
             const MarkdownNodes& collection = Adapter::startingNodeSiblings(node, siblings);
+
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+            collection.end();
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
 
             // Signature node
             MarkdownNodeIterator lastCur = cur;
@@ -63,22 +76,16 @@ namespace snowcrash
             // Default layout
             if (lastCur == cur)
                 return Adapter::nextStartingNode(node, siblings, cur);
-            std::cerr << "XXX " << __LINE__ << std::endl;
 
             // Description nodes
             while (cur != collection.end() && SectionProcessor<T>::isDescriptionNode(cur, pd.sectionContext())) {
 
-                std::cerr << "XXX " << __LINE__ << std::endl;
                 lastCur = cur;
-                std::cerr << "XXX " << __LINE__ << std::endl;
                 cur = SectionProcessor<T>::processDescription(cur, collection, pd, out);
-                std::cerr << "XXX " << __LINE__ << std::endl;
 
                 if (lastCur == cur)
                     return Adapter::nextStartingNode(node, siblings, cur);
-                std::cerr << "XXX " << __LINE__ << std::endl;
             }
-            std::cerr << "XXX " << __LINE__ << std::endl;
 
             // Content nodes
             while (cur != collection.end() && SectionProcessor<T>::isContentNode(cur, pd.sectionContext())) {
@@ -89,14 +96,12 @@ namespace snowcrash
                 if (lastCur == cur)
                     return Adapter::nextStartingNode(node, siblings, cur);
             }
-            std::cerr << "XXX " << __LINE__ << std::endl;
 
             // Nested Sections
             cur = parseNestedSections(cur, collection, pd, out);
 
             SectionProcessor<T>::finalize(node, pd, out);
 
-            std::cerr << "XXX " << __LINE__ << std::endl;
             return Adapter::nextStartingNode(node, siblings, cur);
         }
 
