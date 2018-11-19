@@ -79,47 +79,47 @@ static ClassifiedExpression ClassifyExpression(const Expression& expression)
     VariableExpression variableExpression(expression);
 
     if (variableExpression.IsExpressionType()) {
-        return variableExpression;
+        return std::move(variableExpression);
     }
 
     QueryStringExpression queryStringExpression(expression);
     if (queryStringExpression.IsExpressionType()) {
-        return queryStringExpression;
+        return std::move(queryStringExpression);
     }
 
     FragmentExpression fragmentExpression(expression);
     if (fragmentExpression.IsExpressionType()) {
-        return fragmentExpression;
+        return std::move(fragmentExpression);
     }
 
     ReservedExpansionExpression reservedExpansionExpression(expression);
     if (reservedExpansionExpression.IsExpressionType()) {
-        return reservedExpansionExpression;
+        return std::move(reservedExpansionExpression);
     }
 
     LabelExpansionExpression labelExpansionExpression(expression);
     if (labelExpansionExpression.IsExpressionType()) {
-        return labelExpansionExpression;
+        return std::move(labelExpansionExpression);
     }
 
     PathSegmentExpansionExpression pathSegmentExpansionExpression(expression);
     if (pathSegmentExpansionExpression.IsExpressionType()) {
-        return pathSegmentExpansionExpression;
+        return std::move(pathSegmentExpansionExpression);
     }
 
     PathStyleParameterExpansionExpression pathStyleParameterExpansionExpression(expression);
     if (pathStyleParameterExpansionExpression.IsExpressionType()) {
-        return pathSegmentExpansionExpression;
+        return std::move(pathSegmentExpansionExpression);
     }
 
     FormStyleQueryContinuationExpression formStyleQueryContinuationExpression(expression);
     if (formStyleQueryContinuationExpression.IsExpressionType()) {
-        return formStyleQueryContinuationExpression;
+        return std::move(formStyleQueryContinuationExpression);
     }
 
     UndefinedExpression undefinedExpression(expression);
 
-    return undefinedExpression;
+    return std::move(undefinedExpression);
 }
 
 void URITemplateParser::parse(

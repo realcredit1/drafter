@@ -449,7 +449,9 @@ namespace snowcrash
 
             IntermediateParseResult<Payload> model(out.report);
 
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
             MarkdownNodeIterator cur = PayloadParser::parse(node, siblings, pd, model);
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
 
             // Check whether there isn't a model already
             if (!out.node.model.name.empty()) {
@@ -470,6 +472,8 @@ namespace snowcrash
                     = mdp::BytesRangeSetToCharactersRangeSet(node->sourceMap, pd.sourceCharacterIndex);
                 out.report.warnings.push_back(Warning(ss.str(), DuplicateWarning, sourceMap));
             }
+
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
 
             if (model.node.name.empty()) {
 
@@ -492,6 +496,8 @@ namespace snowcrash
                 }
             }
 
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
+
             ModelTable::iterator it = pd.modelTable.find(model.node.name);
 
             if (it == pd.modelTable.end()) {
@@ -512,11 +518,15 @@ namespace snowcrash
                 out.report.error = Error(ss.str(), ModelError, sourceMap);
             }
 
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
+
             out.node.model = model.node;
 
             if (pd.exportSourceMap()) {
                 out.sourceMap.model = model.sourceMap;
             }
+
+            std::cerr << "RPXXX " << __LINE__ << std::endl;
 
             return cur;
         }

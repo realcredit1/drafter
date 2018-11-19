@@ -117,6 +117,7 @@ namespace snowcrash
                     IntermediateParseResult<Payload> payload(out.report);
 
                     cur = PayloadParser::parse(node, siblings, pd, payload);
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
 
                     if (out.node.examples.empty() || !out.node.examples.back().responses.empty()) {
                         TransactionExample transaction;
@@ -145,25 +146,42 @@ namespace snowcrash
                     IntermediateParseResult<Payload> payload(out.report);
 
                     cur = PayloadParser::parse(node, siblings, pd, payload);
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
 
                     if (out.node.examples.empty()) {
+
+                        std::cerr << "APXXX " << __LINE__ << std::endl;
+
                         TransactionExample transaction;
                         SourceMap<TransactionExample> transactionSM;
 
+                        std::cerr << "APXXX " << __LINE__ << std::endl;
+
                         out.node.examples.push_back(transaction);
 
+                        std::cerr << "APXXX " << __LINE__ << std::endl;
+
                         if (pd.exportSourceMap()) {
+
+                            std::cerr << "APXXX " << __LINE__ << std::endl;
+
                             out.sourceMap.examples.collection.push_back(transactionSM);
                         }
                     }
+
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
 
                     checkPayload(sectionType, sourceMap, payload.node, out);
 
                     out.node.examples.back().responses.push_back(payload.node);
 
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
+
                     if (pd.exportSourceMap()) {
                         out.sourceMap.examples.collection.back().responses.collection.push_back(payload.sourceMap);
                     }
+
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
 
                     break;
                 }
@@ -181,6 +199,8 @@ namespace snowcrash
                 default:
                     break;
             }
+
+            std::cerr << "APXXX " << __LINE__ << std::endl;
 
             return cur;
         }
