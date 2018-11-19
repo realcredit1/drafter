@@ -190,7 +190,7 @@ namespace snowcrash
          *  If set to true, a call to nextStartingNode() can skip some nodes causing some information loss. False
          * otherwise.
          */
-        static const bool nextSkipsUnexpected = false;
+        static constexpr bool nextSkipsUnexpected = false;
     };
 
     /** Parser Adapter for parsing list-defined sections */
@@ -229,7 +229,7 @@ namespace snowcrash
             return ++MarkdownNodeIterator(seed);
         }
 
-        static const bool nextSkipsUnexpected = true;
+        static constexpr bool nextSkipsUnexpected = true;
     };
 
     /** Parser Adapter for parsing blueprint sections */
@@ -255,7 +255,7 @@ namespace snowcrash
             return cur;
         }
 
-        static const bool nextSkipsUnexpected = false;
+        static constexpr bool nextSkipsUnexpected = false;
     };
 }
 
