@@ -17,7 +17,9 @@ aliases:
 
       - checkout
       - run: git submodule update --init --recursive
-      - run: gem install bundler
+      - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
       - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/gnu_release.cmake 
@@ -38,7 +40,9 @@ aliases:
 
       - checkout
       - run: git submodule update --init --recursive
-      - run: gem install bundler
+      - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
       - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/gnu_release.cmake 
@@ -59,7 +63,9 @@ aliases:
 
       - checkout
       - run: git submodule update --init --recursive
-      - run: gem install bundler
+      - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
       - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/gnu_debug.cmake 
@@ -80,7 +86,9 @@ aliases:
 
       - checkout
       - run: git submodule update --init --recursive
-      - run: gem install bundler
+      - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
       - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/coverage.cmake 
@@ -167,6 +175,9 @@ aliases:
       - checkout
       - run: git submodule update --init --recursive
       - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
+      - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/gnu_debug.cmake 
 
@@ -180,6 +191,9 @@ aliases:
 
       - checkout
       - run: git submodule update --init --recursive
+      - run:
+          name: Install integration test dependencies
+          command: bundle install --path vendor/bundle
       - run:
           name: Build and test
           command: ctest -VV -j5 -S cmake/gnu_release.cmake 

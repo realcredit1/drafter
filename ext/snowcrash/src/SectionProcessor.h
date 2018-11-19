@@ -214,20 +214,29 @@ namespace snowcrash
             SectionType& lastSectionType,
             const ParseResultRef<T>& out)
         {
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
 
             // WARN: Ignoring unexpected node
             std::stringstream ss;
             mdp::CharactersRangeSet sourceMap
                 = mdp::BytesRangeSetToCharactersRangeSet(node->sourceMap, pd.sourceCharacterIndex);
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
 
             if (node->type == mdp::HeaderMarkdownNodeType) {
+                std::cerr << "SProcXXX " << __LINE__ << std::endl;
+
                 ss << "unexpected header block, expected a group, resource or an action definition";
                 ss << ", e.g. '# Group <name>', '# <resource name> [<URI>]' or '# <HTTP method> <URI>'";
             } else {
+                std::cerr << "SProcXXX " << __LINE__ << std::endl;
+
                 ss << "ignoring unrecognized block";
             }
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
 
             out.report.warnings.push_back(Warning(ss.str(), IgnoringWarning, sourceMap));
+
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
 
             return ++MarkdownNodeIterator(node);
         }

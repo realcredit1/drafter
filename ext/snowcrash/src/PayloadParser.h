@@ -223,19 +223,26 @@ namespace snowcrash
             const ParseResultRef<Payload>& out)
         {
 
+            std::cerr << "PPXXX " << __LINE__ << std::endl;
+
             if ((node->type == mdp::ParagraphMarkdownNodeType || node->type == mdp::CodeMarkdownNodeType)
                 && sectionType == BodySectionType) {
 
+                std::cerr << "PPXXX " << __LINE__ << std::endl;
                 mdp::ByteBuffer content
                     = CodeBlockUtility::addDanglingAsset(node, pd, sectionType, out.report, out.node.body);
 
+                std::cerr << "PPXXX " << __LINE__ << std::endl;
                 if (pd.exportSourceMap() && !content.empty()) {
+                    std::cerr << "PPXXX " << __LINE__ << std::endl;
                     out.sourceMap.body.sourceMap.append(node->sourceMap);
                 }
+                std::cerr << "PPXXX " << __LINE__ << std::endl;
 
                 return ++MarkdownNodeIterator(node);
             }
 
+            std::cerr << "PPXXX " << __LINE__ << std::endl;
             return SectionProcessorBase<Payload>::processUnexpectedNode(node, siblings, pd, sectionType, out);
         }
 

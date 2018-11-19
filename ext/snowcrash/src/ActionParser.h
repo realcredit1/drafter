@@ -222,40 +222,54 @@ namespace snowcrash
             const ParseResultRef<Action>& out)
         {
 
+            std::cerr << "APXXX " << __LINE__ << std::endl;
+
             if ((node->type == mdp::ParagraphMarkdownNodeType || node->type == mdp::CodeMarkdownNodeType)
                 && (sectionType == ResponseBodySectionType || sectionType == ResponseSectionType)
                 && !out.node.examples.empty() && !out.node.examples.back().responses.empty()) {
+                std::cerr << "APXXX " << __LINE__ << std::endl;
 
                 mdp::ByteBuffer content = CodeBlockUtility::addDanglingAsset(
                     node, pd, sectionType, out.report, out.node.examples.back().responses.back().body);
+                std::cerr << "APXXX " << __LINE__ << std::endl;
 
                 if (pd.exportSourceMap() && !content.empty()) {
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
                     out.sourceMap.examples.collection.back().responses.collection.back().body.sourceMap.append(
                         node->sourceMap);
                 }
+                std::cerr << "APXXX " << __LINE__ << std::endl;
 
                 return ++MarkdownNodeIterator(node);
             }
 
+            std::cerr << "APXXX " << __LINE__ << std::endl;
             if ((node->type == mdp::ParagraphMarkdownNodeType || node->type == mdp::CodeMarkdownNodeType)
                 && (sectionType == RequestBodySectionType || sectionType == RequestSectionType)
                 && !out.node.examples.empty() && !out.node.examples.back().requests.empty()) {
 
+                std::cerr << "APXXX " << __LINE__ << std::endl;
                 mdp::ByteBuffer content = CodeBlockUtility::addDanglingAsset(
                     node, pd, sectionType, out.report, out.node.examples.back().requests.back().body);
+                std::cerr << "APXXX " << __LINE__ << std::endl;
 
                 if (pd.exportSourceMap() && !content.empty()) {
+                    std::cerr << "APXXX " << __LINE__ << std::endl;
                     out.sourceMap.examples.collection.back().requests.collection.back().body.sourceMap.append(
                         node->sourceMap);
                 }
+                std::cerr << "APXXX " << __LINE__ << std::endl;
 
                 return ++MarkdownNodeIterator(node);
             }
 
+            std::cerr << "APXXX " << __LINE__ << std::endl;
             SectionType assetType = SectionProcessor<Asset>::sectionType(node);
 
+            std::cerr << "APXXX " << __LINE__ << std::endl;
             if (assetType != UndefinedSectionType) {
 
+                std::cerr << "APXXX " << __LINE__ << std::endl;
                 // WARN: Ignoring section
                 std::stringstream ss;
                 mdp::CharactersRangeSet sourceMap
@@ -266,9 +280,11 @@ namespace snowcrash
 
                 out.report.warnings.push_back(Warning(ss.str(), IgnoringWarning, sourceMap));
 
+                std::cerr << "APXXX " << __LINE__ << std::endl;
                 return ++MarkdownNodeIterator(node);
             }
 
+            std::cerr << "APXXX " << __LINE__ << std::endl;
             return SectionProcessorBase<Action>::processUnexpectedNode(node, siblings, pd, sectionType, out);
         }
 

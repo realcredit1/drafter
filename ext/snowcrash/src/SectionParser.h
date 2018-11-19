@@ -160,7 +160,11 @@ namespace snowcrash
                 lastCur = cur;
                 SectionType nestedType = SectionProcessor<T>::nestedSectionType(cur);
 
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
+
                 pd.sectionsContext.push_back(nestedType);
+
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
 
                 if (nestedType != UndefinedSectionType) {
                     std::cerr << "SPXXX " << __LINE__ << std::endl;
@@ -169,6 +173,7 @@ namespace snowcrash
                 } else if (Adapter::nextSkipsUnexpected
                     || SectionProcessor<T>::isUnexpectedNode(cur, pd.sectionContext())) {
 
+                    std::cerr << "SPXXX " << __LINE__ << std::endl;
                     cur = SectionProcessor<T>::processUnexpectedNode(cur, collection, pd, lastSectionType, out);
                 }
                 std::cerr << "SPXXX " << __LINE__ << std::endl;
