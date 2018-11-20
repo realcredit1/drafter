@@ -41,6 +41,10 @@ namespace snowcrash
                       << __func__ << std::endl;
 
             std::cerr << "SPXXX " << __LINE__ << std::endl;
+            std::cerr << "siblings: " << siblings.size() << std::endl;
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
             siblings.end();
             std::cerr << "SPXXX " << __LINE__ << std::endl;
 
@@ -49,7 +53,7 @@ namespace snowcrash
             const MarkdownNodes& collection = Adapter::startingNodeSiblings(node, siblings);
 
             std::cerr << "SPXXX " << __LINE__ << std::endl;
-            collection.end();
+            std::cerr << "collection: " << collection.size() << std::endl;
             std::cerr << "SPXXX " << __LINE__ << std::endl;
 
             // Signature node
@@ -144,6 +148,9 @@ namespace snowcrash
             SectionParserData& pd,
             const ParseResultRef<T>& out)
         {
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+            std::cerr << "collection: " << collection.size() << std::endl;
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
 
             MarkdownNodeIterator cur = node;
             MarkdownNodeIterator lastCur = cur;
@@ -151,6 +158,9 @@ namespace snowcrash
             SectionType lastSectionType = UndefinedSectionType;
 
             SectionProcessor<T>::preprocessNestedSections(node, collection, pd, out);
+
+            std::cerr << "SPXXX " << __LINE__ << std::endl;
+            std::cerr << "cur: " << static_cast<int>(cur->type) << std::endl;
             std::cerr << "SPXXX " << __LINE__ << std::endl;
 
             // Nested sections
@@ -165,17 +175,26 @@ namespace snowcrash
                 pd.sectionsContext.push_back(nestedType);
 
                 std::cerr << "SPXXX " << __LINE__ << std::endl;
+                std::cerr << "cur: " << static_cast<int>(cur->type) << std::endl;
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
 
                 if (nestedType != UndefinedSectionType) {
-                    std::cerr << "SPXXX " << __LINE__ << std::endl;
+
                     cur = SectionProcessor<T>::processNestedSection(cur, collection, pd, out);
                     std::cerr << "SPXXX " << __LINE__ << std::endl;
                 } else if (Adapter::nextSkipsUnexpected
                     || SectionProcessor<T>::isUnexpectedNode(cur, pd.sectionContext())) {
 
-                    std::cerr << "SPXXX " << __LINE__ << std::endl;
                     cur = SectionProcessor<T>::processUnexpectedNode(cur, collection, pd, lastSectionType, out);
+                    std::cerr << "SPXXX " << __LINE__ << std::endl;
                 }
+
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
+                std::cerr << "cur: " << static_cast<int>(cur->type) << std::endl;
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
+                std::cerr << "collection: " << collection.size() << std::endl;
+                std::cerr << "SPXXX " << __LINE__ << std::endl;
+                std::cerr << "pd: " << static_cast<int>(pd.sectionContext()) << std::endl;
                 std::cerr << "SPXXX " << __LINE__ << std::endl;
 
                 if (cur != collection.end()
