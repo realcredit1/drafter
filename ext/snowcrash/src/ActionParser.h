@@ -81,7 +81,7 @@ namespace snowcrash
                 out.node.description += remainingContent;
 
                 if (pd.exportSourceMap()) {
-                    out.sourceMap.description.sourceMap.append(node->sourceMap);
+                    mdp::mergeContinuous(out.sourceMap.description.sourceMap, node->sourceMap);
                 }
             }
 
@@ -235,7 +235,7 @@ namespace snowcrash
 
                 if (pd.exportSourceMap() && !content.empty()) {
                     std::cerr << "APXXX " << __LINE__ << std::endl;
-                    out.sourceMap.examples.collection.back().responses.collection.back().body.sourceMap.append(
+                    mdp::mergeContinuous(out.sourceMap.examples.collection.back().responses.collection.back().body.sourceMap, 
                         node->sourceMap);
                 }
                 std::cerr << "APXXX " << __LINE__ << std::endl;
@@ -255,7 +255,7 @@ namespace snowcrash
 
                 if (pd.exportSourceMap() && !content.empty()) {
                     std::cerr << "APXXX " << __LINE__ << std::endl;
-                    out.sourceMap.examples.collection.back().requests.collection.back().body.sourceMap.append(
+                    mdp::mergeContinuous(out.sourceMap.examples.collection.back().requests.collection.back().body.sourceMap, 
                         node->sourceMap);
                 }
                 std::cerr << "APXXX " << __LINE__ << std::endl;

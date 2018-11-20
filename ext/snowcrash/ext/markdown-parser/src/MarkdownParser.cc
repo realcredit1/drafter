@@ -347,10 +347,10 @@ void MarkdownParser::blockDidParse(const BytesRangeSet& sourceMap)
 
         BytesRangeSet workMap = sourceMap;
         workMap.back().length = workMapLength;
-        lMarkdownNode.sourceMap.append(workMap);
+        mergeContinuous(lMarkdownNode.sourceMap, workMap);
     } else {
 
-        lMarkdownNode.sourceMap.append(sourceMap);
+        mergeContinuous(lMarkdownNode.sourceMap, sourceMap);
     }
 
     // No "inline" list items:
@@ -368,9 +368,9 @@ void MarkdownParser::blockDidParse(const BytesRangeSet& sourceMap)
             range.length = buffer.length();
             BytesRangeSet newMap;
             newMap.push_back(range);
-            lMarkdownNode.children().front().sourceMap.append(newMap);
+            mergeContinuous(lMarkdownNode.children().front().sourceMap, newMap);
         } else {
-            lMarkdownNode.children().front().sourceMap.append(sourceMap);
+            mergeContinuous(lMarkdownNode.children().front().sourceMap, sourceMap);
         }
     }
 }
