@@ -216,6 +216,14 @@ namespace snowcrash
         {
             std::cerr << "SProcXXX " << __LINE__ << std::endl;
 
+            std::cerr << "SProcXXX " << __LINE__ << "\t" << pd.sourceCharacterIndex.size() << std::endl;
+
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
+
+            *node;
+
+            std::cerr << "SProcXXX " << __LINE__ << std::endl;
+
             // WARN: Ignoring unexpected node
             std::stringstream ss;
             mdp::CharactersRangeSet sourceMap
