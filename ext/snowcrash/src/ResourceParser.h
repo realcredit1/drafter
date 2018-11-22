@@ -58,7 +58,7 @@ namespace snowcrash
                     std::cerr << "RPXXX " << __LINE__ << std::endl;
                     node->parent().children().end();
                     std::cerr << "RPXXX " << __LINE__ << std::endl;
-                    return processNestedAction(node, node->parent().children(), pd, layout, out);
+                    return processNestedAction(node, siblings, pd, layout, out);
                 }
             } else if (RegexCapture(node->text, NamedEndpointHeaderRegex, captureGroups, 5)) {
 
